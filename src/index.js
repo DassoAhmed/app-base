@@ -4,7 +4,7 @@ import './style.css';
 import { initializeApp } from 'firebase/app';
 
 // Add the Firebase products and methods that you want to use
-import {} from 'firebase/auth';
+import { getAuth, EmailAuthProvider } from 'firebase/auth';
 import {} from 'firebase/firestore';
 
 import * as firebaseui from 'firebaseui';
@@ -26,10 +26,24 @@ let guestbookListener = null;
 let db, auth;
 
 async function main() {
+     // Initialize the FirebaseUI widget using Firebase
+  const ui = new firebaseui.auth.AuthUI(auth);
   // Add Firebase project configuration object here
-  const firebaseConfig = {};
+  const firebaseConfig = {
+    apiKey: "AIzaSyCjTxAu4YhYg_quwFK3nxN8_Cgt-Tqg1-E",
+    authDomain: "app-base-50a7d.firebaseapp.com",
+    projectId: "app-base-50a7d",
+    storageBucket: "app-base-50a7d.appspot.com",
+    messagingSenderId: "495620980841",
+    appId: "1:495620980841:web:bfae1082ed4ad4fc13e2f8"
+  };
 
   // initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+
+//add the FirebaseUI initialization statement
+  initializeApp(firebaseConfig);
+    auth = getAuth();
 
   // FirebaseUI config
   const uiConfig = {
