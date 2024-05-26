@@ -28,6 +28,12 @@ let db, auth;
 async function main() {
      // Initialize the FirebaseUI widget using Firebase
   const ui = new firebaseui.auth.AuthUI(auth);
+
+  // Listen to RSVP button clicks
+  startRsvpButton.addEventListener("click",
+   () => {
+        ui.start("#firebaseui-auth-container", uiConfig);
+  });
   // Add Firebase project configuration object here
   const firebaseConfig = {
     apiKey: "AIzaSyCjTxAu4YhYg_quwFK3nxN8_Cgt-Tqg1-E",
