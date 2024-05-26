@@ -1,15 +1,11 @@
+
 {
   "name": "app-base",
-  "version": "1.0.0",
-  "description": "starter-base a starter on base and javascript",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "version": "2.0.1",
+  "private": true,
   "dependencies": {
-    "firebase": "^10.12.1"
+    "firebase": "^9.6.11",
+    "firebaseui": "^6.0.1"
   }
 }
+
