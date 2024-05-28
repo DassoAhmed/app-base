@@ -45,7 +45,7 @@ startRsvpButton.addEventListener('click', () => {
       // No user is signed in; allows user to sign in
       ui.start('#firebaseui-auth-container', uiConfig);
     }
-  });
+  });    
   // Add Firebase project configuration object here
   const firebaseConfig = {
     apiKey: "AIzaSyCjTxAu4YhYg_quwFK3nxN8_Cgt-Tqg1-E",
