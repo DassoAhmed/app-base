@@ -5,12 +5,12 @@ import { initializeApp } from 'firebase/app';
 
 // Add the Firebase products and methods that you want to use
 import {
-    getAuth,
-    EmailAuthProvider,
-    signOut,
-    onAuthStateChanged
-  } from 'firebase/auth';
-  
+  getAuth,
+  EmailAuthProvider,
+  signOut,
+  onAuthStateChanged
+} from 'firebase/auth';
+
 import {} from 'firebase/firestore';
 
 import * as firebaseui from 'firebaseui';
@@ -30,22 +30,7 @@ let rsvpListener = null;
 let guestbookListener = null;
 
 let db, auth;
-
 async function main() {
-     // Initialize the FirebaseUI widget using Firebase
-  const ui = new firebaseui.auth.AuthUI(auth);
-
-  // Listen to RSVP button clicks
- // Called when the user clicks the RSVP button
-startRsvpButton.addEventListener('click', () => {
-    if (auth.currentUser) {
-      // User is signed in; allows user to sign out
-      signOut(auth);
-    } else {
-      // No user is signed in; allows user to sign in
-      ui.start('#firebaseui-auth-container', uiConfig);
-    }
-  });    
   // Add Firebase project configuration object here
   const firebaseConfig = {
     apiKey: "AIzaSyCjTxAu4YhYg_quwFK3nxN8_Cgt-Tqg1-E",
@@ -56,30 +41,50 @@ startRsvpButton.addEventListener('click', () => {
     appId: "1:495620980841:web:bfae1082ed4ad4fc13e2f8"
   };
 
-  // initializeApp(firebaseConfig);
-  const app = initializeApp(firebaseConfig);
-
-//add the FirebaseUI initialization statement
-  initializeApp(firebaseConfig);
+  // Make sure Firebase is initilized
+  try {
+    if (firebaseConfig && firebaseConfig.apiKey) {
+      initializeApp(firebaseConfig);
+    }
     auth = getAuth();
+  } catch (e) {
+    console.log('error:', e);
+    document.getElementById('app').innerHTML =
+      '<h1>Welcome to the Codelab! Add your Firebase config object to <pre>/index.js</pre> and refresh to get started</h1>';
+    throw new Error(
+      'Welcome to the Codelab! Add your Firebase config object from the Firebase Console to `/index.js` and refresh to get started'
+    );
+  }
 
   // FirebaseUI config
   const uiConfig = {
     credentialHelper: firebaseui.auth.CredentialHelper.NONE,
     signInOptions: [
       // Email / Password Provider.
-      EmailAuthProvider.PROVIDER_ID,
+      EmailAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-      signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+      signInSuccessWithAuthResult: function(authResult, redirectUrl) {
         // Handle sign-in.
         // Return false to avoid redirect.
         return false;
-      },
-    },
+      }
+    }
   };
 
-  // const ui = new firebaseui.auth.AuthUI(auth);
+  // Initialize the FirebaseUI widget using Firebase
+  const ui = new firebaseui.auth.AuthUI(getAuth());
+
+  // Listen to RSVP button clicks
+  startRsvpButton.addEventListener('click', () => {
+    if (auth.currentUser) {
+      // User is signed in; allows user to sign out
+      signOut(auth);
+    } else {
+      // No user is signed in; allows user to sign in
+      ui.start('#firebaseui-auth-container', uiConfig);
+    }
+  });
 
   // Listen to the current Auth state
   onAuthStateChanged(auth, user => {
